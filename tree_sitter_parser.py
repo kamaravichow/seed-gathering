@@ -1,17 +1,16 @@
 from tree_sitter import Language, Parser
 
-Language.build_library(
-    'build/lang.so',
-    [
-        './tree-sitter-python'
-    ]
+Language.build_library("build/lang.so", ["./tree-sitter-typescript/typescript"])
+LANGUAGE = Language("build/lang.so", "typescript")
+
+
+QUERY = LANGUAGE.query(
+    """
+(function_declaration name: (identifier) @fn-name)
+(method_definition name: (property_identifier) @fn-name)
+(arrow_function parameter: (identifier) @fn-param)
+"""
 )
-LANGUAGE = Language('build/lang.so', 'python')
-
-
-QUERY = LANGUAGE.query("""
-(function_definition name: (identifier) @fn-name)
-""")
 
 
 global_parser = Parser()
@@ -29,7 +28,7 @@ def get_fn_name(code, parser=global_parser):
 
 
 def node_to_string(src: bytes, node):
-    return src[node.start_byte:node.end_byte].decode("utf8")
+    return src[node.start_byte : node.end_byte].decode("utf8")
 
 
 def make_parser():
@@ -38,9 +37,11 @@ def make_parser():
     return _parser
 
 
-RETURN_QUERY = LANGUAGE.query("""
+RETURN_QUERY = LANGUAGE.query(
+    """
 (return_statement) @return
-""")
+"""
+)
 
 
 def does_have_return(src, parser=global_parser):
@@ -59,7 +60,9 @@ def does_have_return(src, parser=global_parser):
 
 if __name__ == "__main__":
     code = """
-import ble
-from a import b
+import { Component } from 'react';
+const hello = () => {
+  return 'world';
+};
 """
     print(global_parser.parse(bytes(code, "utf8")).root_node.sexp())

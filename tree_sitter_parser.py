@@ -1,7 +1,7 @@
 from tree_sitter import Language, Parser
 import tree_sitter_typescript as tstypescript
 
-LANGUAGE = Language(tstypescript.language_typescript)
+LANGUAGE = Language(tstypescript.language_typescript())
 
 
 QUERY = LANGUAGE.query(
@@ -11,8 +11,7 @@ QUERY = LANGUAGE.query(
 )
 
 
-global_parser = Parser()
-global_parser.set_language(LANGUAGE)
+global_parser = Parser(LANGUAGE)
 
 
 def get_fn_name(code, parser=global_parser):
@@ -30,8 +29,7 @@ def node_to_string(src: bytes, node):
 
 
 def make_parser():
-    _parser = Parser()
-    _parser.set_language(LANGUAGE)
+    _parser = Parser(LANGUAGE)
     return _parser
 
 

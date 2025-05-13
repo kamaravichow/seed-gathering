@@ -7,8 +7,6 @@ LANGUAGE = Language("build/lang.so", "typescript")
 QUERY = LANGUAGE.query(
     """
 (function_declaration name: (identifier) @fn-name)
-(method_definition name: (property_identifier) @fn-name)
-(arrow_function parameter: (identifier) @fn-param)
 """
 )
 

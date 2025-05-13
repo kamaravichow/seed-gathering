@@ -1,7 +1,7 @@
 from tree_sitter import Language, Parser
+import tree_sitter_typescript as tstypescript
 
-Language.build_library("build/lang.so", ["./tree-sitter-typescript/typescript"])
-LANGUAGE = Language("build/lang.so", "typescript")
+LANGUAGE = Language(tstypescript.language_typescript)
 
 
 QUERY = LANGUAGE.query(

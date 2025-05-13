@@ -1,5 +1,9 @@
-datasets==2.18.0
-tree-sitter==0.21.3
-tqdm==4.65.0
-torch==2.2.1
-vllm==0.4.1
+datasets
+tree-sitter
+tqdm
+torch
+vllm
+tree-sitter-typescript
+datasets 
+huggingface_hub 
+fsspec
